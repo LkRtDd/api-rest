@@ -17,7 +17,7 @@ public class ClienteService {
 
     public ClienteDTO guardarCliente(ClienteDTO clienteDTO) {
         Cliente cliente = new Cliente();
-        
+
         cliente.setNombre(clienteDTO.getNombre());
         cliente.setDireccion(clienteDTO.getDireccion());
         cliente.setEmail(clienteDTO.getEmail());
@@ -27,9 +27,17 @@ public class ClienteService {
         return clienteDTO;
     }
 
-    public List<ClienteDTO> obtenerClientes(){
+    public List<ClienteDTO> obtenerClientes() {
         return clienteRepository.findAll().stream()
-        .map(cliente -> new ClienteDTO(cliente.getId(), cliente.getNombre(), cliente.getDireccion(), cliente.getEmail(), cliente.getTelefono()))
-        .collect(Collectors.toList());
+                .map(cliente -> new ClienteDTO(cliente.getId(), cliente.getNombre(), cliente.getDireccion(),
+                        cliente.getEmail(), cliente.getTelefono()))
+                .collect(Collectors.toList());
+    }
+
+    public ClienteDTO obtenerClientePorId(Long id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado: " + id));
+        return new ClienteDTO(cliente.getId(), cliente.getNombre(), cliente.getDireccion(), cliente.getEmail(),
+                cliente.getTelefono());
     }
 }
