@@ -40,4 +40,8 @@ public class ClienteService {
         return new ClienteDTO(cliente.getId(), cliente.getNombre(), cliente.getDireccion(), cliente.getEmail(),
                 cliente.getTelefono());
     }
+
+    public void eliminarCliente(Long id) {
+        clienteRepository.deleteById(id);
+    }
 }

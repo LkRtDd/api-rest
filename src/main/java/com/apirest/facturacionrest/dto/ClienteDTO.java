@@ -12,8 +12,12 @@ public class ClienteDTO {
     private String email;
     private String telefono;
 
-    public ClienteDTO(Long id2, String nombre2, String direccion2, String email2, String telefono2) {
-        // TODO Auto-generated constructor stub
+    public ClienteDTO(Long id, String nombre, String direccion, String email, String telefono) {
+        this.id = id;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.email = email;
+        this.telefono = telefono;
     }
 
     public Long getId() {
