@@ -11,18 +11,15 @@ import com.apirest.facturacionrest.service.FacturaService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("/facturas")
 public class FacturaController {
     @Autowired
-    private FacturaService  facturaService;
+    private FacturaService facturaService;
 
     @PostMapping
-    public ResponseEntity<FacturaDTO> generarFactura(@RequestBody FacturaDTO facturaDTO){
+    public ResponseEntity<FacturaDTO> generarFactura(@RequestBody FacturaDTO facturaDTO) {
         return new ResponseEntity<>(facturaService.generarFactura(facturaDTO), HttpStatus.CREATED);
     }
-    
-    
-    
+
 }
