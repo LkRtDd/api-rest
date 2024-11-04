@@ -60,6 +60,10 @@ public class FacturaDTO {
         this.totalConImpuestos = totalConImpuestos;
     }
 
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
