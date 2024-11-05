@@ -2,7 +2,7 @@ package com.apirest.facturacionrest.service;
 
 import com.apirest.facturacionrest.model.Producto;
 import com.apirest.facturacionrest.respository.ProductoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +12,7 @@ public class ProductoService {
 
     private final ProductoRepository productoRepository;
 
-    @Autowired
+    // @Autowired
     public ProductoService(ProductoRepository productoRepository) {
         this.productoRepository = productoRepository;
     }

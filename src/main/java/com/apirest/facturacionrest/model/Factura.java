@@ -1,11 +1,13 @@
 package com.apirest.facturacionrest.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -22,9 +24,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "facturas")
 public class Factura {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate fecha;
+    private Date fecha;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
@@ -36,7 +39,7 @@ public class Factura {
     private Double totalSinImpuestos;
     private Double totalImpuestos;
     private Double totalConImpuestos;
-    private LocalDate fechaCreacion;
+    private Date fechaCreacion;
 
     public Long getId() {
         return id;
@@ -46,11 +49,11 @@ public class Factura {
         this.id = id;
     }
 
-    public LocalDate getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
