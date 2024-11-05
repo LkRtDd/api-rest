@@ -27,7 +27,7 @@ public class Factura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date fecha;
+    private Date fechaCreacion;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
@@ -39,7 +39,6 @@ public class Factura {
     private Double totalSinImpuestos;
     private Double totalImpuestos;
     private Double totalConImpuestos;
-    private Date fechaCreacion;
 
     public Long getId() {
         return id;
@@ -50,11 +49,11 @@ public class Factura {
     }
 
     public Date getFecha() {
-        return fecha;
+        return fechaCreacion;
     }
 
     public void setFecha(Date fecha) {
-        this.fecha = fecha;
+        this.fechaCreacion = fecha;
     }
 
     public Cliente getCliente() {
