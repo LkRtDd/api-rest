@@ -3,58 +3,51 @@ package com.apirest.facturacionrest.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.apirest.facturacionrest.model.Producto;
-import com.apirest.facturacionrest.respository.ProductoRepository;
+import com.apirest.facturacionrest.service.ProductoService;
 
 @RestController
 @RequestMapping("/productos")
 public class ProductoController {
-    @Autowired
-    private ProductoRepository productoRepository;
 
-    @GetMapping
-    public List<Producto> getAllProductos() {
-        return productoRepository.findAll();
+    private final ProductoService productoService;
+
+    @Autowired
+    public ProductoController(ProductoService productoService) {
+        this.productoService = productoService;
     }
 
-    @GetMapping("{id}")
-    public Producto getProductoById(@PathVariable Long id) {
-        return productoRepository.findById(id).orElseThrow(() -> new RuntimeException("Producto no encontrado: " + id));
+    @GetMapping
+    public ResponseEntity<List<Producto>> getAllProductos() {
+        List<Producto> productos = productoService.getAllProductos();
+        return ResponseEntity.ok(productos);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Producto> getProductoById(@PathVariable Long id) {
+        Producto producto = productoService.getProductoById(id);
+        return ResponseEntity.ok(producto);
     }
 
     @PostMapping
-    public Producto createProducto(@RequestBody Producto producto) {
-        return productoRepository.save(producto);
+    public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) {
+        Producto nuevoProducto = productoService.createProducto(producto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoProducto);
     }
 
-    @PutMapping("{id}")
-    public Producto updateProducto(@PathVariable Long id, @RequestBody Producto detallesProducto) {
-        Producto producto = productoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado: " + id));
-
-        producto.setNombre(detallesProducto.getNombre());
-        producto.setPrecio(detallesProducto.getPrecio());
-
-        return productoRepository.save(producto);
-
+    @PutMapping("/{id}")
+    public ResponseEntity<Producto> updateProducto(@PathVariable Long id, @RequestBody Producto detallesProducto) {
+        Producto productoActualizado = productoService.updateProducto(id, detallesProducto);
+        return ResponseEntity.ok(productoActualizado);
     }
 
-    @DeleteMapping("{id}")
-    public String deleteProducto(@PathVariable Long id) {
-        Producto producto = productoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado: " + id));
-
-        productoRepository.delete(producto);
-        return "Producto eliminado: " + id;
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteProducto(@PathVariable Long id) {
+        productoService.deleteProducto(id);
+        return ResponseEntity.ok("Producto eliminado: " + id);
     }
-
 }
