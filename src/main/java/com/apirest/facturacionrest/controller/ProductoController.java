@@ -73,9 +73,9 @@ public class ProductoController {
             @ApiResponse(responseCode = "400", description = "Error al actualizar producto", content = @Content(schema = @Schema(implementation = ApiResponseMsg.class))),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content(schema = @Schema(implementation = ApiResponseMsg.class)))
     })
-    public ResponseEntity<Producto> updateProducto(@PathVariable Long id, @RequestBody Producto detallesProducto) {
+    public ResponseEntity<?> updateProducto(@PathVariable Long id, @RequestBody Producto detallesProducto) {
         Producto productoActualizado = productoService.updateProducto(id, detallesProducto);
-        return ResponseEntity.ok(productoActualizado);
+        return ResponseEntity.ok(new ApiResponseMsg("Producto Actualizado", productoActualizado));
     }
 
     @DeleteMapping("/{id}")
@@ -85,8 +85,8 @@ public class ProductoController {
             @ApiResponse(responseCode = "400", description = "Error al eliminar producto", content = @Content(schema = @Schema(implementation = ApiResponseMsg.class))),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content(schema = @Schema(implementation = ApiResponseMsg.class)))
     })
-    public ResponseEntity<String> deleteProducto(@PathVariable Long id) {
+    public ResponseEntity<ApiResponseMsg> deleteProducto(@PathVariable Long id) {
         productoService.deleteProducto(id);
-        return ResponseEntity.ok("Producto eliminado: " + id);
+        return ResponseEntity.ok(new ApiResponseMsg("Producto eliminado", id));
     }
 }
