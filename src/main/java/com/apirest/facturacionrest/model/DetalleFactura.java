@@ -82,4 +82,11 @@ public class DetalleFactura {
         this.subTotal = subTotal;
     }
 
+    public Long getProductoId() {
+        return producto.getId();
+    }
+
+    public Long setProductoId() {
+        return producto.getId();
+    }
 }
