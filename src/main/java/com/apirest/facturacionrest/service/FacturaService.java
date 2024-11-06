@@ -38,11 +38,11 @@ public class FacturaService {
         factura.setFecha(new Date());
 
         List<DetalleFactura> detalles = new ArrayList<>();
-        List<DetalleFacturaDTO> detalleFacturaDTOs = new ArrayList<>();
+        List<DetalleFactura> detalleFacturaDTOs = new ArrayList<>();
         Double totalSinImpuestos = 0.0;
         Double totalImpuestos = 0.0;
 
-        for (DetalleFacturaDTO detalleDTO : facturaDTO.getDetalles()) {
+        for (DetalleFactura detalleDTO : facturaDTO.getDetalles()) {
             Producto producto = productoRepository.findById(detalleDTO.getProductoId()).orElseThrow();
             Double subTotal = producto.getPrecio() * detalleDTO.getCantidad();
             Double impuesto = producto.getImpuesto() != null ? producto.getImpuesto() * subTotal : 0.0;
@@ -58,7 +58,6 @@ public class FacturaService {
             detalleFacturaDTO.setProductoId(detalleDTO.getProductoId());
             detalleFacturaDTO.setCantidad(detalleDTO.getCantidad());
             detalleFacturaDTO.setSubTotal(subTotal);
-            detalleFacturaDTOs.add(detalleFacturaDTO);
 
             totalSinImpuestos += subTotal;
             totalImpuestos += impuesto;

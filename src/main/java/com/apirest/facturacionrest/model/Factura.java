@@ -60,6 +60,10 @@ public class Factura {
         return cliente;
     }
 
+    public Long getClienteId() {
+        return cliente.getId();
+    }
+
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
