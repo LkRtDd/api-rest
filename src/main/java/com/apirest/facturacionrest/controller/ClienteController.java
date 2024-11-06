@@ -45,7 +45,7 @@ public class ClienteController {
     }
 
     @GetMapping("/cliente/{id}")
-    public ResponseEntity<?> getClientById(Long id) {
+    public ResponseEntity<?> getClientById(@PathVariable Long id) {
         try {
             ClienteDTO cliente = clienteService.obtenerClientePorId(id);
             return ResponseEntity.ok(new ApiResponseMsg("Cliente encontrado", cliente));
@@ -67,8 +67,8 @@ public class ClienteController {
     @PutMapping("cliente/{id}")
     public ResponseEntity<?> updateClient(@PathVariable Long id, @RequestBody ClienteDTO clienteDTO) {
         try {
-            clienteService.guardarCliente(clienteDTO);
-            return ResponseEntity.ok(new ApiResponseMsg("Cliente actualizado", clienteDTO));
+            ClienteDTO updatedCliente = clienteService.actualizarCliente(id, clienteDTO);
+            return ResponseEntity.ok(new ApiResponseMsg("Cliente actualizado", updatedCliente));
         } catch (Exception e) {
             return ResponseEntity.ok(new ApiResponseMsg("Error al actualizar cliente", e.getMessage()));
         }
