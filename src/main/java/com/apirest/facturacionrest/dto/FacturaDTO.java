@@ -3,12 +3,10 @@ package com.apirest.facturacionrest.dto;
 import java.util.Date;
 import java.util.List;
 
-import com.apirest.facturacionrest.model.DetalleFactura;
-
 public class FacturaDTO {
     private Long id;
     private Long clienteId;
-    private List<DetalleFactura> detalles;
+    private List<DetalleFacturaDTO> detalles;
     private Double totalSinImpuestos;
     private Double totalImpuestos;
     private Double totalConImpuestos;
@@ -30,12 +28,12 @@ public class FacturaDTO {
         this.clienteId = clienteId;
     }
 
-    public List<DetalleFactura> getDetalles() {
+    public List<DetalleFacturaDTO> getDetalles() {
         return detalles;
     }
 
-    public void setDetalles(List<DetalleFactura> detalles) {
-        this.detalles = detalles;
+    public void setDetalles(List<DetalleFacturaDTO> detalleFacturaDTOs) {
+        this.detalles = detalleFacturaDTOs;
     }
 
     public Double getTotalSinImpuestos() {

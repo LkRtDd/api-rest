@@ -17,7 +17,6 @@ public class FacturaMapper {
         facturaDto.setTotalSinImpuestos(factura.getTotalSinImpuestos());
         facturaDto.setTotalConImpuestos(factura.getTotalConImpuestos());
         facturaDto.setClienteId(factura.getClienteId());
-        facturaDto.setDetalles(factura.getDetalleFactura());
         return facturaDto;
     }
 }

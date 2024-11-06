@@ -11,7 +11,7 @@ public class DetalleFacturaMapper {
         if (detalleFactura == null) {
             throw new IllegalArgumentException("El DetalleFacturaEntity no puede ser nulo");
         }
-        DetalleFacturaDTO detalleFacturaDto = new DetalleFacturaDTO();
+        DetalleFacturaDTO detalleFacturaDto = new DetalleFacturaDTO(null, null, null);
         detalleFacturaDto.setCantidad(detalleFactura.getCantidad());
         detalleFacturaDto.setSubTotal(detalleFactura.getSubTotal());
         detalleFacturaDto.setProductoId(detalleFactura.getProductoId());

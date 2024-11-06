@@ -1,6 +1,7 @@
 package com.apirest.facturacionrest.service;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -38,26 +39,29 @@ public class FacturaService {
         factura.setFecha(new Date());
 
         List<DetalleFactura> detalles = new ArrayList<>();
-        List<DetalleFactura> detalleFacturaDTOs = new ArrayList<>();
+        List<DetalleFacturaDTO> detalleFacturaDTOs = new ArrayList<>();
         Double totalSinImpuestos = 0.0;
         Double totalImpuestos = 0.0;
 
-        for (DetalleFactura detalleDTO : facturaDTO.getDetalles()) {
-            Producto producto = productoRepository.findById(detalleDTO.getProductoId()).orElseThrow();
-            Double subTotal = producto.getPrecio() * detalleDTO.getCantidad();
-            Double impuesto = producto.getImpuesto() != null ? producto.getImpuesto() * subTotal : 0.0;
+        for (DetalleFacturaDTO detalleDTO : facturaDTO.getDetalles()) {
+            Producto producto = productoRepository.findById(detalleDTO.getProductoId())
+                    .orElseThrow(() -> new RuntimeException("Producto not found"));
 
             DetalleFactura detalle = new DetalleFactura();
             detalle.setProducto(producto);
+            detalle.setFactura(factura);
             detalle.setCantidad(detalleDTO.getCantidad());
             detalle.setPrecioUnitario(producto.getPrecio());
+            Double subTotal = detalleDTO.getCantidad() * producto.getPrecio();
+            Double impuesto = subTotal * producto.getImpuesto();
             detalle.setSubTotal(subTotal);
             detalles.add(detalle);
 
-            DetalleFacturaDTO detalleFacturaDTO = new DetalleFacturaDTO();
-            detalleFacturaDTO.setProductoId(detalleDTO.getProductoId());
+            DetalleFacturaDTO detalleFacturaDTO = new DetalleFacturaDTO(clienteId, null, impuesto);
+            detalleFacturaDTO.setProductoId(producto.getId());
             detalleFacturaDTO.setCantidad(detalleDTO.getCantidad());
             detalleFacturaDTO.setSubTotal(subTotal);
+            detalleFacturaDTOs.add(detalleFacturaDTO);
 
             totalSinImpuestos += subTotal;
             totalImpuestos += impuesto;

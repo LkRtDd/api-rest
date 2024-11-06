@@ -5,10 +5,10 @@ public class DetalleFacturaDTO {
     private Integer cantidad;
     private Double subTotal;
 
-    public DetalleFacturaDTO() {
-        this.productoId = null;
-        this.cantidad = null;
-        this.subTotal = null;
+    public DetalleFacturaDTO(Long productoId, Integer cantidad, Double subTotal) {
+        this.productoId = productoId;
+        this.cantidad = cantidad;
+        this.subTotal = subTotal;
     }
 
     public Long getProductoId() {
